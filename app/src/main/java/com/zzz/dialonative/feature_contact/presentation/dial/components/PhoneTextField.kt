@@ -1,0 +1,188 @@
+package com.zzz.dialonative.feature_contact.presentation.dial.components
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.zzz.dialonative.R
+import com.zzz.dialonative.core.presentation.components.CustomButton
+import com.zzz.dialonative.feature_contact.presentation.dial.util.addDigit
+import com.zzz.dialonative.feature_contact.presentation.dial.util.removeDigit
+import com.zzz.dialonative.ui.theme.darkBackground
+import com.zzz.dialonative.ui.theme.darkOnBackground
+import com.zzz.dialonative.ui.theme.dialButton
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+fun PhoneTextField(
+    onDial : (String)->Unit,
+    modifier: Modifier = Modifier
+) {
+    var number by remember { mutableStateOf("") }
+
+
+    Column(
+        modifier
+            .wrapContentHeight()
+            .fillMaxWidth() ,
+        horizontalAlignment = Alignment.CenterHorizontally ,
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        Row(
+            Modifier.fillMaxWidth() ,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            CustomButton(
+                icon = R.drawable.close_icon ,
+                label = "backspace" ,
+                onClick = {
+                    number = ""
+                }
+            )
+            TextField(
+                value = number ,
+                onValueChange = {
+                    number = it
+                } ,
+                modifier = Modifier
+                    .weight(1f) ,
+                readOnly = true ,
+                colors = TextFieldDefaults.colors(
+                    unfocusedContainerColor = darkBackground ,
+                    focusedContainerColor = darkBackground
+                ) ,
+                textStyle = TextStyle(
+                    fontSize = 35.sp ,
+                    fontWeight = FontWeight.Bold ,
+                    color = darkOnBackground ,
+                    textAlign = TextAlign.Center
+                ) ,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Phone
+                )
+            )
+            CustomButton(
+                icon = R.drawable.backspace_icon ,
+                label = "backspace" ,
+                onClick = {
+                    number = number.dropLast(1)
+                }
+            )
+
+        }
+        FlowRow(
+            modifier = Modifier.wrapContentHeight() ,
+            maxItemsInEachRow = 3 ,
+            verticalArrangement = Arrangement.spacedBy(4.dp) ,
+            horizontalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            repeat(9) {
+                DigitButton(
+                    modifier = Modifier.weight(1f) ,
+                    digit = it + 1 ,
+                    onClick = { num ->
+                        number += num
+                        /*number = number.copy(
+                            text = number.text.addDigit(
+                                number.selection.start ,
+                                number.selection.end ,
+                                num
+                            )
+                        )*/
+                    } ,
+                    fontSize = 35.sp
+                )
+            }
+            DigitButton(
+                modifier = Modifier.weight(1f) ,
+                digit = 0 ,
+                isSymbol = true ,
+                symbol = "*" ,
+                onClick = { num ->
+                    number += num
+                }
+            )
+            DigitButton(
+                modifier = Modifier.weight(1f) ,
+                digit = 0 ,
+                onClick = { num ->
+                    number += num
+                }
+            )
+            DigitButton(
+                modifier = Modifier.weight(1f) ,
+                digit = 0 ,
+                isSymbol = true ,
+                symbol = "#" ,
+                onClick = { num ->
+                    number += num
+                }
+            )
+        }
+        Button(
+            onClick = {
+                onDial(number.trim())
+            } ,
+            colors = ButtonDefaults.buttonColors(
+                containerColor = dialButton
+            )
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp) ,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.phone_icon) ,
+                    contentDescription = "DIAL" ,
+                    tint = darkOnBackground
+                )
+                Text(
+                    "Call" ,
+                    fontSize = 18.sp ,
+                    color = darkOnBackground
+                )
+            }
+        }
+    }
+}
+
+@Preview(uiMode = 32 , showBackground = true)
+@Composable
+private fun PhonePREV() {
+    Box(
+        Modifier
+            .fillMaxSize()
+            .background(darkBackground)
+    ) {
+        PhoneTextField(onDial = {})
+    }
+}

@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -24,10 +23,20 @@ import com.zzz.dialonative.feature_contact.presentation.home.components.DialFab
 import com.zzz.dialonative.feature_contact.presentation.home.components.FirstLetterStickyHeader
 import com.zzz.dialonative.feature_contact.presentation.home.components.SearchBar
 
+
+@Composable
+fun HomePageRoot(
+    onDialFab : ()->Unit
+) {
+    HomePage(
+        onDialFab = onDialFab
+    )
+}
+
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HomePage(
-
+private fun HomePage(
+    onDialFab: () -> Unit
 ) {
     val contacts = listOf(
         Contact(id = 2, color = Color.Red.toArgb(), name = "Atharva P"),
@@ -71,14 +80,12 @@ fun HomePage(
                     }
                 }
             }
-            repeat(10){
-
-            }
         }
         DialFab(
-            onClick = {},
+            onClick = onDialFab,
             size = 50.dp,
-            modifier = Modifier.align(Alignment.BottomEnd)
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
                 .padding(16.dp)
         )
 
@@ -88,7 +95,7 @@ fun HomePage(
 @Preview
 @Composable
 private fun HomePrev() {
-    HomePage()
+    HomePage({})
 }
 
 

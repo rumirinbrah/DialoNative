@@ -17,5 +17,6 @@ val darkOnCreate = Color(0xFF4A4A4A)
 val darkSurface = Color(0xFFD9D9D9)
 
 val darkButton = Color(0xFF23769A)
+val dialButton = Color(0xFF05880C)
 val darkSecondary = Color(0xA6FFFFFF)
 val dullRed = Color(0xFFFF5151)

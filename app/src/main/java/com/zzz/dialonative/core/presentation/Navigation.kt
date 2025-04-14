@@ -1,25 +1,29 @@
 package com.zzz.dialonative.core.presentation
 
 import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.expandIn
+import androidx.compose.animation.shrinkOut
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavDestination.Companion.hasRoute
+import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.zzz.dialonative.core.presentation.components.BottomNavBar
 import com.zzz.dialonative.core.presentation.util.Screen
 import com.zzz.dialonative.feature_contact.presentation.create_contact.CreateContactRoot
-import com.zzz.dialonative.feature_contact.presentation.home.HomePage
+import com.zzz.dialonative.feature_contact.presentation.dial.DialPageRoot
+import com.zzz.dialonative.feature_contact.presentation.home.HomePageRoot
 import com.zzz.dialonative.feature_contact.presentation.recents.RecentCallsRoot
 import com.zzz.dialonative.ui.theme.darkBackground
 
@@ -28,11 +32,27 @@ fun Navigation(
 
 ) {
     val navController = rememberNavController()
+    val navEntry = navController.currentBackStackEntryAsState()
+    val navBarVisible = remember(navEntry) {
+        println("State changed")
+        derivedStateOf {
+            navEntry.value?.destination?.hierarchy?.any {
+                it.hasRoute(Screen.DialScreen::class)
+            } == false
+        }
+    }
 
     Scaffold(
         containerColor = darkBackground,
         bottomBar = {
-            BottomNavBar(navController)
+            AnimatedVisibility(
+                navBarVisible.value,
+                enter = expandIn(),
+                exit = shrinkOut()
+            ) {
+
+                BottomNavBar(navController)
+            }
         }
     ) {paddingValues ->
         NavHost(
@@ -69,7 +89,11 @@ fun Navigation(
                 }
             ) {
 
-                HomePage()
+                HomePageRoot(
+                    onDialFab = {
+                        navController.navigate(Screen.DialScreen)
+                    }
+                )
             }
             composable<Screen.RecentScreen>(
                 enterTransition = {
@@ -86,6 +110,23 @@ fun Navigation(
                 }
             ) {
                 RecentCallsRoot()
+            }
+
+            composable<Screen.DialScreen>(
+                enterTransition = {
+                    slideIntoContainer(
+                        towards = AnimatedContentTransitionScope.SlideDirection.Up,
+                        animationSpec = tween(300)
+                    )
+                },
+                exitTransition = {
+                    slideOutOfContainer(
+                        towards = AnimatedContentTransitionScope.SlideDirection.Down,
+                        animationSpec = tween(300)
+                    )
+                }
+            ) {
+                DialPageRoot()
             }
         }
     }

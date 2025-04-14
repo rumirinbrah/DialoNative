@@ -11,4 +11,7 @@ sealed class Screen {
 
     @Serializable
     data object RecentScreen : Screen()
+
+    @Serializable
+    data object DialScreen : Screen()
 }
