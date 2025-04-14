@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -28,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.zzz.dialonative.R
+import com.zzz.dialonative.core.presentation.components.VerticalSpace
 import com.zzz.dialonative.feature_contact.domain.model.Contact
 import com.zzz.dialonative.ui.theme.DialoNativeTheme
 import com.zzz.dialonative.ui.theme.darkOnBackground
@@ -37,6 +39,7 @@ import com.zzz.dialonative.ui.theme.darkSurface
 @Composable
 fun ContactListItem(
     contact: Contact,
+    showNumber : Boolean = false,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -55,13 +58,28 @@ fun ContactListItem(
         ) {
 
             ContactListImage(firstLetter = contact.name.take(1), color = contact.color)
-            Text(
-                contact.name ,
-                fontSize = 18.sp,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis,
-                color = darkOnBackground
-            )
+            Column(
+                horizontalAlignment = Alignment.Start
+            ) {
+                Text(
+                    contact.name ,
+                    fontSize = 18.sp,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                    color = darkOnBackground
+                )
+                if(showNumber){
+//                    VerticalSpace(4.dp)
+                    Text(
+                        contact.phone ,
+                        fontSize = 13.sp,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        color = darkOnBackground
+                    )
+                }
+            }
+
         }
         //Call ICON
         Box(

@@ -6,6 +6,8 @@ import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandIn
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkOut
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -42,13 +44,14 @@ fun Navigation(
         }
     }
 
+
     Scaffold(
         containerColor = darkBackground,
         bottomBar = {
             AnimatedVisibility(
                 navBarVisible.value,
-                enter = expandIn(),
-                exit = shrinkOut()
+                enter = fadeIn(tween(300)) ,
+                exit = fadeOut(tween(300))
             ) {
 
                 BottomNavBar(navController)
@@ -64,7 +67,8 @@ fun Navigation(
             },
             exitTransition ={
                 ExitTransition.None
-            }
+            },
+
         ) {
             composable<Screen.CreateContactScreen> {
                 CreateContactRoot(
@@ -112,19 +116,20 @@ fun Navigation(
                 RecentCallsRoot()
             }
 
+            //dial
             composable<Screen.DialScreen>(
                 enterTransition = {
                     slideIntoContainer(
                         towards = AnimatedContentTransitionScope.SlideDirection.Up,
-                        animationSpec = tween(300)
+                        animationSpec = tween(400)
                     )
                 },
                 exitTransition = {
                     slideOutOfContainer(
                         towards = AnimatedContentTransitionScope.SlideDirection.Down,
-                        animationSpec = tween(300)
+                        animationSpec = tween(400)
                     )
-                }
+                },
             ) {
                 DialPageRoot()
             }

@@ -18,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -44,11 +45,11 @@ import com.zzz.dialonative.ui.theme.dialButton
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun PhoneTextField(
+    value : String,
+    onValueChange : (String)->Unit,
     onDial : (String)->Unit,
     modifier: Modifier = Modifier
 ) {
-    var number by remember { mutableStateOf("") }
-
 
     Column(
         modifier
@@ -65,13 +66,14 @@ fun PhoneTextField(
                 icon = R.drawable.close_icon ,
                 label = "backspace" ,
                 onClick = {
-                    number = ""
+                    //number = ""
+                    onValueChange("")
                 }
             )
             TextField(
-                value = number ,
+                value = value ,
                 onValueChange = {
-                    number = it
+
                 } ,
                 modifier = Modifier
                     .weight(1f) ,
@@ -94,7 +96,7 @@ fun PhoneTextField(
                 icon = R.drawable.backspace_icon ,
                 label = "backspace" ,
                 onClick = {
-                    number = number.dropLast(1)
+                     onValueChange(value.dropLast(1))
                 }
             )
 
@@ -110,7 +112,8 @@ fun PhoneTextField(
                     modifier = Modifier.weight(1f) ,
                     digit = it + 1 ,
                     onClick = { num ->
-                        number += num
+                        //number += num
+                        onValueChange(value+num)
                         /*number = number.copy(
                             text = number.text.addDigit(
                                 number.selection.start ,
@@ -128,14 +131,15 @@ fun PhoneTextField(
                 isSymbol = true ,
                 symbol = "*" ,
                 onClick = { num ->
-                    number += num
+                    onValueChange(value+num)
                 }
             )
             DigitButton(
                 modifier = Modifier.weight(1f) ,
                 digit = 0 ,
                 onClick = { num ->
-                    number += num
+                    //number += num
+                    onValueChange(value+num)
                 }
             )
             DigitButton(
@@ -144,13 +148,14 @@ fun PhoneTextField(
                 isSymbol = true ,
                 symbol = "#" ,
                 onClick = { num ->
-                    number += num
+                    //number += num
+                    onValueChange(value+num)
                 }
             )
         }
         Button(
             onClick = {
-                onDial(number.trim())
+                onDial(value.trim())
             } ,
             colors = ButtonDefaults.buttonColors(
                 containerColor = dialButton
@@ -172,17 +177,5 @@ fun PhoneTextField(
                 )
             }
         }
-    }
-}
-
-@Preview(uiMode = 32 , showBackground = true)
-@Composable
-private fun PhonePREV() {
-    Box(
-        Modifier
-            .fillMaxSize()
-            .background(darkBackground)
-    ) {
-        PhoneTextField(onDial = {})
     }
 }
