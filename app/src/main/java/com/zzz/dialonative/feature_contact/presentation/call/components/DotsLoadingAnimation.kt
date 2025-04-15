@@ -10,7 +10,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -23,10 +22,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.util.lerp
 import com.zzz.dialonative.ui.theme.darkSurface
 
+
+/**
+ * @param dotSize - The size of bouncy dots
+ * @param bounceSize - The vertical bounce size of animating dots
+ * @param color - Dots color
+ */
 @Composable
 fun DotsLoadingAnimation(
     dotSize : Dp = 20.dp,
@@ -89,7 +93,11 @@ fun DotsLoadingAnimation(
 
 }
 
-fun Modifier.dotAnimation(anchor: Float , size: Int): Modifier {
+/**
+ * @param anchor - Infinite animation value (0..1f)
+ * @param size - Size of vertical bounce
+ */
+private fun Modifier.dotAnimation(anchor: Float , size: Int): Modifier {
 
     return offset {
         IntOffset(

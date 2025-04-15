@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -19,6 +20,7 @@ fun CustomButton(
     icon : Int,
     label : String,
     onClick : ()->Unit,
+    size : Dp = 30.dp,
     tint : Color = Color.White,
     backgroundColor : Color = Color.DarkGray,
 ) {
@@ -31,7 +33,7 @@ fun CustomButton(
             .padding(8.dp)
     ){
         Icon(
-            modifier = Modifier.size(30.dp),
+            modifier = Modifier.size(size),
             tint = tint,
             painter = painterResource(icon),
             contentDescription = label

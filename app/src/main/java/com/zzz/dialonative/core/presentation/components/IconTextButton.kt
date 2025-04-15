@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -23,6 +22,16 @@ import androidx.compose.ui.unit.sp
 import com.zzz.dialonative.ui.theme.darkOnBackground
 import com.zzz.dialonative.ui.theme.darkOnCreate
 
+/**
+ * A button that represents an icon and a text side by side
+ * @param icon - Icon
+ * @param text - The title for button
+ * @param onClick - Triggered on button click
+ * @param iconSize - Size of icon
+ * @param fontSize - Text size
+ * @param backgroundColor - Button background color
+ * @param contentColor - Icon and text color
+ */
 @Composable
 fun IconTextButton(
     icon : Int,

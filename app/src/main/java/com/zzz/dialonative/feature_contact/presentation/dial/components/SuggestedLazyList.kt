@@ -16,7 +16,6 @@ import com.zzz.dialonative.core.presentation.components.IconTextButton
 import com.zzz.dialonative.core.presentation.components.VerticalSpace
 import com.zzz.dialonative.feature_contact.presentation.dial.util.DialState
 import com.zzz.dialonative.feature_contact.presentation.home.components.ContactListItem
-import com.zzz.dialonative.ui.theme.darkOnBackground
 import com.zzz.dialonative.ui.theme.darkSecondary
 import com.zzz.dialonative.ui.theme.darkSurface
 

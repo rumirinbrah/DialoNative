@@ -15,8 +15,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.zzz.dialonative.core.presentation.Navigation
+import com.zzz.dialonative.feature_contact.presentation.call.CallPage
+import com.zzz.dialonative.feature_contact.presentation.call.components.BlurredBackgroundImage
 import com.zzz.dialonative.feature_contact.presentation.call.components.DotsLoadingAnimation
 import com.zzz.dialonative.ui.theme.DialoNativeTheme
+import com.zzz.dialonative.ui.theme.callingBackground
 import com.zzz.dialonative.ui.theme.darkBackground
 
 class MainActivity : ComponentActivity() {
@@ -28,11 +31,11 @@ class MainActivity : ComponentActivity() {
                 //Navigation()
                 Box(
                     Modifier.fillMaxSize()
-                        .background(darkBackground)
-                        .padding(16.dp),
-                    contentAlignment = Alignment.Center
+                        .background(callingBackground),
+                        //.padding(16.dp),
+                    //contentAlignment = Alignment.Center
                 ){
-                    DotsLoadingAnimation()
+                    CallPage()
                 }
 
             }
