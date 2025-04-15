@@ -9,6 +9,8 @@ import androidx.compose.animation.expandIn
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -50,8 +52,8 @@ fun Navigation(
         bottomBar = {
             AnimatedVisibility(
                 navBarVisible.value,
-                enter = fadeIn(tween(300)) ,
-                exit = fadeOut(tween(300))
+                enter = slideInVertically(), //fadeIn(tween(300)) ,
+                exit = slideOutVertically()//fadeOut(tween(300))
             ) {
 
                 BottomNavBar(navController)

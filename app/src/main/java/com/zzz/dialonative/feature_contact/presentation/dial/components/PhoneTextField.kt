@@ -1,13 +1,10 @@
 package com.zzz.dialonative.feature_contact.presentation.dial.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.text.KeyboardOptions
@@ -18,26 +15,17 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.zzz.dialonative.R
 import com.zzz.dialonative.core.presentation.components.CustomButton
-import com.zzz.dialonative.feature_contact.presentation.dial.util.addDigit
-import com.zzz.dialonative.feature_contact.presentation.dial.util.removeDigit
 import com.zzz.dialonative.ui.theme.darkBackground
 import com.zzz.dialonative.ui.theme.darkOnBackground
 import com.zzz.dialonative.ui.theme.dialButton
@@ -51,6 +39,7 @@ fun PhoneTextField(
     modifier: Modifier = Modifier
 ) {
 
+    //max ph no digits can be 16 & min 4
     Column(
         modifier
             .wrapContentHeight()
@@ -80,7 +69,8 @@ fun PhoneTextField(
                 readOnly = true ,
                 colors = TextFieldDefaults.colors(
                     unfocusedContainerColor = darkBackground ,
-                    focusedContainerColor = darkBackground
+                    focusedContainerColor = darkBackground,
+                    focusedIndicatorColor = darkOnBackground
                 ) ,
                 textStyle = TextStyle(
                     fontSize = 35.sp ,
@@ -154,6 +144,7 @@ fun PhoneTextField(
             )
         }
         Button(
+            enabled = value.isNotBlank(),
             onClick = {
                 onDial(value.trim())
             } ,
