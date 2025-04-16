@@ -11,6 +11,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.getSystemService
 import com.zzz.dialonative.R
 import com.zzz.dialonative.core.presentation.util.LogTags
+import com.zzz.dialonative.feature_contact.platform.call_service.util.CallConstants
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -29,6 +30,7 @@ class CallNotificationManager(
     private lateinit var notificationBuilder: NotificationCompat.Builder
 
 
+    //create
     fun createNotification(name: String): Notification {
         Log.d(LogTags.STOPWATCH , "createNotification: Notification created")
 
@@ -49,38 +51,29 @@ class CallNotificationManager(
 
      */
 
-    fun cancelNotification() {
-        Log.d(LogTags.STOPWATCH , "cancelNotification: Notification cancelled")
 
-        notificationManager?.cancel(101)
-    }
-
+    //update
     fun updateNotification(minutes: String , seconds: String) {
         scope.launch {
             notificationBuilder.setContentText("Call in progress - $minutes:$seconds")
 
-            notificationManager?.notify(101 , notificationBuilder.build())
+            notificationManager?.notify(CallConstants.NOTIFICATION_ID , notificationBuilder.build())
         }
     }
 
-    private fun callEndIntentProvider(): PendingIntent {
-        val intent = Intent(context , NotificationReceiver::class.java).apply {
-            putExtra("action" , "a1")
-        }
-        return PendingIntent.getBroadcast(
-            context ,
-            102 ,
-            intent ,
-            FLAG_IMMUTABLE
-        )
+    //cancel
+    fun cancelNotification() {
+        Log.d(LogTags.STOPWATCH , "cancelNotification: Notification cancelled")
 
+        notificationManager?.cancel(CallConstants.NOTIFICATION_ID)
     }
 
+    //init
     private fun initializeBuilder(title: String): Notification {
         Log.d(LogTags.STOPWATCH , "initializeBuilder: Notification builder")
 
         val buttonPI = callEndIntentProvider()
-        notificationBuilder = NotificationCompat.Builder(context , "my_channel")
+        notificationBuilder = NotificationCompat.Builder(context , CallConstants.CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setOngoing(true)
             .setContentText("Call in progress - 00:00")
@@ -91,6 +84,20 @@ class CallNotificationManager(
         return notificationBuilder.build()
     }
 
+    //call end pending intent
+    private fun callEndIntentProvider(): PendingIntent {
+        val intent = Intent(context , NotificationReceiver::class.java).apply {
+            putExtra(CallConstants.CALL_END_ACTION , NotificationActions.END_CALL)
+        }
+        return PendingIntent.getBroadcast(
+            context ,
+            CallConstants.CALL_END_INTENT ,
+            intent ,
+            FLAG_IMMUTABLE
+        )
+
+    }
+
     private fun formatMillisToHHMM(timeMillis: Long): String {
         val totalSeconds = java.util.concurrent.TimeUnit.MILLISECONDS.toSeconds(timeMillis)
         val minutes = totalSeconds / 60
@@ -98,4 +105,7 @@ class CallNotificationManager(
         return String.format(Locale.getDefault() , "%02d:%02d" , minutes , seconds)
     }
 
+}
+enum class NotificationActions{
+    END_CALL
 }
