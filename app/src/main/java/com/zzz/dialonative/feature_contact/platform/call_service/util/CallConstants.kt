@@ -6,7 +6,7 @@ object CallConstants {
     const val CHANNEL_NAME = "DialoCalls"
 
     const val NOTIFICATION_ID = 101
-    const val CALL_END_INTENT = 102
+    const val CALL_END_INTENT_REQ_CODE = 1069
 
     const val CALL_END_ACTION = "CALL_END"
 

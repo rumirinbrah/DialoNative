@@ -1,6 +1,10 @@
 package com.zzz.dialonative
 
+import android.Manifest
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -18,6 +22,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.zzz.dialonative.core.presentation.Navigation
 import com.zzz.dialonative.feature_contact.platform.call_service.CallService
 import com.zzz.dialonative.feature_contact.platform.call_service.CallServiceActions
@@ -33,6 +39,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            requestPermission(this)
             DialoNativeTheme {
                 //Navigation()
                 Box(
@@ -62,3 +69,15 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+private fun requestPermission(context: Context){
+    if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.TIRAMISU) {
+        val hasPerm = ContextCompat.checkSelfPermission(context , Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
+        if(!hasPerm){
+            ActivityCompat.requestPermissions(context as ComponentActivity , arrayOf( Manifest.permission.POST_NOTIFICATIONS),101)
+        }
+    }else{
+        return
+    }
+}
+
+

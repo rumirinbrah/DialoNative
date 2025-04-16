@@ -87,11 +87,15 @@ class CallNotificationManager(
     //call end pending intent
     private fun callEndIntentProvider(): PendingIntent {
         val intent = Intent(context , NotificationReceiver::class.java).apply {
-            putExtra(CallConstants.CALL_END_ACTION , NotificationActions.END_CALL)
+            Log.d(LogTags.STOPWATCH , "initializeBuilder: Intent builder ${NotificationActions.END_CALL.name}")
+            putExtra(CallConstants.CALL_END_ACTION , NotificationActions.END_CALL.name)
+            //putExtra("action" , "a1")
         }
+        val data = intent.getStringExtra(CallConstants.CALL_END_ACTION)
+        println("DATA IS $data")
         return PendingIntent.getBroadcast(
             context ,
-            CallConstants.CALL_END_INTENT ,
+            CallConstants.CALL_END_INTENT_REQ_CODE ,
             intent ,
             FLAG_IMMUTABLE
         )

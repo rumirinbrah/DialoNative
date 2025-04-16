@@ -42,7 +42,6 @@ class CallService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
-        stopServiceAndReleaseResources()
         Log.d(LogTags.STOPWATCH , "onDestroy: DESTROY service")
     }
 

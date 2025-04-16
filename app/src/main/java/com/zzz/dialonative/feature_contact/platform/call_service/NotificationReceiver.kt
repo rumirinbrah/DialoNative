@@ -12,8 +12,12 @@ class NotificationReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context? , intent: Intent?) {
         Log.d(LogTags.STOPWATCH , "onReceive: Notification action received")
 
-        when(intent?.getStringExtra(CallConstants.CALL_END_ACTION)){
+        val receivedAction = intent?.getStringExtra(CallConstants.CALL_END_ACTION)
+        Log.d(LogTags.STOPWATCH , "onReceive: Notification action is $receivedAction")
+        when(receivedAction){
             NotificationActions.END_CALL.name->{
+                Log.d(LogTags.STOPWATCH , "onReceive: CALL END ACTION")
+
                 val stopIntent = Intent(context, CallService::class.java).apply {
                     action = CallServiceActions.STOP.name
                 }
