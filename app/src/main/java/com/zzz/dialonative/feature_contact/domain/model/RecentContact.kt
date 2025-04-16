@@ -18,6 +18,7 @@ data class RecentContact(
     val name: String = "" ,
     val userImage: Uri? = null ,
     val countryCode: Int = 91 ,
+    val duration : Long? = null,
     val color: Int ,
     val mostRecentCall : RecentCall,
     val recentCalls : List<RecentCall> = emptyList()

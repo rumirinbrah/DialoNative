@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.zzz.dialonative.core.presentation.Navigation
-import com.zzz.dialonative.feature_contact.presentation.call.CallPage
+import com.zzz.dialonative.feature_contact.presentation.call.CallPageRoot
 import com.zzz.dialonative.feature_contact.presentation.call.components.BlurredBackgroundImage
 import com.zzz.dialonative.feature_contact.presentation.call.components.DotsLoadingAnimation
 import com.zzz.dialonative.ui.theme.DialoNativeTheme
@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity() {
                         //.padding(16.dp),
                     //contentAlignment = Alignment.Center
                 ){
-                    CallPage()
+                    CallPageRoot()
                 }
 
             }

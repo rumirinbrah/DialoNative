@@ -20,15 +20,26 @@ import com.zzz.dialonative.core.presentation.components.CustomButton
 import com.zzz.dialonative.core.presentation.components.VerticalSpace
 import com.zzz.dialonative.feature_contact.presentation.call.components.BlurredBackgroundImage
 import com.zzz.dialonative.feature_contact.presentation.call.components.CallingIndicator
+import com.zzz.dialonative.ui.theme.buttonRed
 import com.zzz.dialonative.ui.theme.darkOnBackground
+import com.zzz.dialonative.ui.theme.darkOnCreate
+import com.zzz.dialonative.ui.theme.darkSurface
 
 @Composable
-fun CallPage(
+fun CallPageRoot(
+
+) {
+    CallPage()
+}
+
+@Composable
+private fun CallPage(
 
 ) {
 
     Column(
-        Modifier.fillMaxSize()
+        Modifier
+            .fillMaxSize()
             .padding(16.dp)
             .statusBarsPadding()
             .navigationBarsPadding(),
@@ -47,14 +58,36 @@ fun CallPage(
 
         Row (
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+            horizontalArrangement = Arrangement.spacedBy(56.dp)
         ){
             //MUTE
             CustomButton(
-                icon = R.drawable.close_icon,
+                icon = R.drawable.mute_icon,
                 label = "niga",
                 onClick = {},
-                size = 40.dp
+                size = 40.dp,
+                tint = darkSurface,
+                backgroundColor = darkOnCreate
+            )
+
+            //END
+            CustomButton(
+                icon = R.drawable.phone_icon,
+                label = "niga",
+                onClick = {},
+                size = 45.dp,
+                tint = darkOnBackground,
+                backgroundColor = buttonRed
+            )
+
+            //SPEAKER
+            CustomButton(
+                icon = R.drawable.speaker_icon,
+                label = "niga",
+                onClick = {},
+                size = 40.dp,
+                tint = darkSurface,
+                backgroundColor = darkOnCreate
             )
         }
 
