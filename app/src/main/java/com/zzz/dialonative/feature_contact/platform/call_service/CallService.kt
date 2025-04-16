@@ -6,6 +6,7 @@ import android.os.IBinder
 import android.util.Log
 import com.zzz.dialonative.core.presentation.util.LogTags
 import com.zzz.dialonative.feature_contact.domain.stopwatch.StopwatchManager
+import com.zzz.dialonative.feature_contact.platform.call_service.util.CallConstants
 import org.koin.android.ext.android.inject
 
 
@@ -41,6 +42,7 @@ class CallService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
+        stopServiceAndReleaseResources()
         Log.d(LogTags.STOPWATCH , "onDestroy: DESTROY service")
     }
 
@@ -50,7 +52,7 @@ class CallService : Service() {
         stopwatchManager.startStopwatch { seconds, minutes ->
             notificationHelper.updateNotification(minutes,seconds)
         }
-        startForeground(101,notification)
+        startForeground(CallConstants.NOTIFICATION_ID,notification)
     }
 
     private fun stopServiceAndReleaseResources(){
