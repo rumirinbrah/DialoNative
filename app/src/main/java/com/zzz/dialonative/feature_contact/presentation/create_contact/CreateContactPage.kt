@@ -40,17 +40,22 @@ import com.zzz.dialonative.R
 import com.zzz.dialonative.core.presentation.components.VerticalSpace
 import com.zzz.dialonative.feature_contact.presentation.create_contact.components.AddImageBox
 import com.zzz.dialonative.feature_contact.presentation.create_contact.components.TextFieldWithIcon
+import com.zzz.dialonative.ui.theme.callingBackground
 import com.zzz.dialonative.ui.theme.darkButton
 import com.zzz.dialonative.ui.theme.darkOnBackground
 import com.zzz.dialonative.ui.theme.darkSurface
 
 @Composable
 fun CreateContactRoot(
+    phone : String? = null,
     cancel : ()->Unit,
     viewModel : CreateContactViewModel = viewModel() ,
 ) {
 
     val state by viewModel.state.collectAsStateWithLifecycle()
+    if(phone!=null){
+        viewModel.onAction(CreateAction.OnPhoneChange(phone))
+    }
     CreateContactPage(
         state ,
         cancel = cancel,
@@ -79,6 +84,7 @@ private fun CreateContactPage(
 
     Column(
         Modifier.fillMaxSize()
+            .background(callingBackground)
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -103,7 +109,7 @@ private fun CreateContactPage(
         VerticalSpace(30.dp)
         Text(
             "Create Contact" ,
-            fontSize = 25.sp,
+            fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
             color = darkOnBackground
         )
