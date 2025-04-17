@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -27,6 +28,7 @@ import com.zzz.dialonative.ui.theme.darkOnCreate
 @Composable
 fun BottomNavBar(
     navController : NavHostController,
+    onHeightCalculated : (Int)->Unit
 ) {
     val entry = navController.currentBackStackEntryAsState()
 
@@ -34,7 +36,10 @@ fun BottomNavBar(
         Modifier.fillMaxWidth()
             .clip(RoundedCornerShape(topStart = 25f, topEnd = 25f))
             .background(darkOnCreate.copy(alpha = 0.5f))
-            .navigationBarsPadding(),
+            .navigationBarsPadding()
+            .onGloballyPositioned {coordinates ->
+                onHeightCalculated(coordinates.size.height)
+            },
             //.padding(8.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceEvenly

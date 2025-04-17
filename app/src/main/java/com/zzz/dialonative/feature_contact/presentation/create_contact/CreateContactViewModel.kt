@@ -1,7 +1,9 @@
 package com.zzz.dialonative.feature_contact.presentation.create_contact
 
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.zzz.dialonative.core.presentation.util.LogTags
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -30,6 +32,7 @@ class CreateContactViewModel : ViewModel() {
     }
 
     private fun onImageAdd(uri: Uri) {
+        Log.d(LogTags.CREATE_CONTACT , "onImageAdd: Image added")
         _state.update {
             it.copy(image = uri)
         }
