@@ -30,6 +30,9 @@ import com.zzz.dialonative.feature_contact.platform.call_service.CallServiceActi
 import com.zzz.dialonative.feature_contact.presentation.call.CallPageRoot
 import com.zzz.dialonative.feature_contact.presentation.call.components.BlurredBackgroundImage
 import com.zzz.dialonative.feature_contact.presentation.call.components.DotsLoadingAnimation
+import com.zzz.dialonative.feature_contact.presentation.dial.DialPageRoot
+import com.zzz.dialonative.feature_contact.presentation.dial.components.SuggestedLazyList
+import com.zzz.dialonative.feature_contact.presentation.dial.util.DialState
 import com.zzz.dialonative.ui.theme.DialoNativeTheme
 import com.zzz.dialonative.ui.theme.callingBackground
 import com.zzz.dialonative.ui.theme.darkBackground
@@ -41,29 +44,19 @@ class MainActivity : ComponentActivity() {
         setContent {
             requestPermission(this)
             DialoNativeTheme {
-                //Navigation()
-                Box(
-                    Modifier.fillMaxSize()
-                        .background(callingBackground),
-                        //.padding(16.dp),
-                    //contentAlignment = Alignment.Center
-                ){
-                    //CallPageRoot()
-                    Column (
-                        Modifier.statusBarsPadding()
-                    ){
-                        Button(
-                            onClick = {
-                                val intent = Intent(this@MainActivity,CallService::class.java).apply {
-                                    action = CallServiceActions.START.name
-                                }
-                                this@MainActivity.startService(intent)
-                            }
-                        ) {
-                            Text("Start")
-                        }
-                    }
-                }
+                Navigation()
+//                Box(
+//                    Modifier.fillMaxSize()
+//                        .background(callingBackground),
+//                        //.padding(16.dp),
+//                    //contentAlignment = Alignment.Center
+//                ){
+//                    Column (
+//                        Modifier.statusBarsPadding()
+//                    ){
+//                        DialPageRoot {  }
+//                    }
+//                }
 
             }
         }
@@ -71,9 +64,13 @@ class MainActivity : ComponentActivity() {
 }
 private fun requestPermission(context: Context){
     if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.TIRAMISU) {
-        val hasPerm = ContextCompat.checkSelfPermission(context , Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
+        val hasPerm = ContextCompat.checkSelfPermission(context , Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED
         if(!hasPerm){
-            ActivityCompat.requestPermissions(context as ComponentActivity , arrayOf( Manifest.permission.POST_NOTIFICATIONS),101)
+            ActivityCompat.requestPermissions(
+                context as ComponentActivity ,
+                arrayOf(Manifest.permission.CALL_PHONE , Manifest.permission.POST_NOTIFICATIONS) ,
+                101
+            )
         }
     }else{
         return
