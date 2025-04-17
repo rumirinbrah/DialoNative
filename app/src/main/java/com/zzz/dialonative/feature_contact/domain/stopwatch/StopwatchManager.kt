@@ -25,6 +25,9 @@ class StopwatchManager {
     val stopwatchState: State<StopwatchState> = _stopwatchState
 
     //u can trigger this once call initiated
+    /**
+     * @param onTick - Callback returning minutes and seconds elapsed
+     */
     fun startStopwatch(onTick: (seconds: String , minutes: String) -> Unit) {
         Log.d(LogTags.STOPWATCH , "startStopwatch: Starting stopwatch")
 

@@ -10,8 +10,11 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
 import com.zzz.dialonative.ui.theme.darkOnBackground
 import com.zzz.dialonative.ui.theme.darkOnCreate
+import com.zzz.dialonative.ui.theme.darkSecondary
+import com.zzz.dialonative.ui.theme.darkSurface
 
 @Composable
 fun SearchBar(
@@ -24,7 +27,7 @@ fun SearchBar(
         value = value ,
         onValueChange = onValueChange,
         placeholder = {
-            Text("Search for contacts...")
+            Text("Search for contacts...", color = darkSurface)
         },
         shape = shape,
         colors = TextFieldDefaults.colors(
@@ -40,7 +43,10 @@ fun SearchBar(
                 tint = darkOnBackground,
                 //modifier = Modifier.size(35.dp)
             )
-        }
+        },
+        textStyle = TextStyle(
+            color = darkSurface
+        )
     )
 
 }

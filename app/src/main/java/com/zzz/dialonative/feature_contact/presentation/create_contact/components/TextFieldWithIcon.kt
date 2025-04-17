@@ -54,6 +54,7 @@ fun TextFieldWithIcon(
                 unfocusedContainerColor = darkOnCreate,
                 focusedContainerColor = darkOnCreate,
                 focusedIndicatorColor = darkOnBackground,
+                unfocusedIndicatorColor = darkOnCreate,
                 cursorColor = darkOnBackground,
                 focusedPlaceholderColor = darkOnBackground,
                 unfocusedPlaceholderColor = darkOnBackground,

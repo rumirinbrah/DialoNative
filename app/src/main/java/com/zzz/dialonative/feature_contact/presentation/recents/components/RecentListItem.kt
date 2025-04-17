@@ -122,7 +122,7 @@ fun RecentListItem(
                         contact.name ,
                         fontSize = 17.sp ,
                         fontWeight = FontWeight.Medium ,
-                        color = darkOnBackground
+                        color = darkSurface
                     )
                     Row(
                         modifier = Modifier ,
@@ -140,7 +140,7 @@ fun RecentListItem(
 
                         Text(
                             formattedStringForRecent ,
-                            fontSize = 14.sp ,
+                            fontSize = 12.sp ,
                             color = iconTint ,
                             fontWeight = if (contact.mostRecentCall.callType == RecentCallType.MISSED_CALL) {
                                 FontWeight.Bold

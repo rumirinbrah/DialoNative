@@ -14,6 +14,11 @@ val tempContacts = listOf(
     Contact(id = 4, color = Color.Red.toArgb(), name = "Bhupesh M"),
     Contact(id = 5, color = Color.Green.toArgb(), name = "Mrinal P" , phone = "8378834813"),
     Contact(id = 6, color = Color.Green.toArgb(), name = "Srushti Patale"),
+    Contact(id = 7, color = Color.Red.toArgb(), name = "Akshay P", phone = "9767297913"),
+    Contact(id = 8, color = Color.Green.toArgb(), name = "Anuradha S"),
+    Contact(id = 9, color = Color.Red.toArgb(), name = "Niga M"),
+    Contact(id = 11, color = Color.Green.toArgb(), name = "Gojo P" , phone = "7478834813"),
+    Contact(id = 12, color = Color.Green.toArgb(), name = "Yee boi"),
 )
 
 

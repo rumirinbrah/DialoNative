@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.zzz.dialonative.core.presentation.components.VerticalSpace
 import com.zzz.dialonative.feature_contact.domain.model.RecentCall
 import com.zzz.dialonative.feature_contact.domain.model.RecentCallType
@@ -97,7 +98,8 @@ private fun RecentCallsPage(
                 groupedRecents.forEach { (header , recentContacts) ->
                     stickyHeader {
                         DateStickyHeader(
-                            header
+                            header,
+                            fontSize = 17.sp
                         )
                     }
                     items(recentContacts) {contact->

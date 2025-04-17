@@ -3,6 +3,7 @@ package com.zzz.dialonative.feature_contact.presentation.dial.components
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
@@ -22,7 +23,8 @@ import com.zzz.dialonative.ui.theme.darkSurface
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SuggestedLazyList(
-    state : DialState,
+    state: DialState ,
+    onNavToCreate: () -> Unit ,
     modifier: Modifier = Modifier
 ) {
     val filteredContacts = remember(state.phNo) {
@@ -32,37 +34,42 @@ fun SuggestedLazyList(
     }
 
     LazyColumn(
-        modifier,
+        modifier
+            .fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        stickyHeader {
-            Text(
-                "Suggested Contacts" ,
-                fontSize = 15.sp,
-                color = darkSecondary
-            )
-        }
+        //CREATE NEW
         item {
             IconTextButton(
                 icon = R.drawable.user_add_icon ,
                 text = "Create new contact" ,
                 onClick = {
-                    //nav to create
-                },
-                contentColor = darkSurface,
+                    onNavToCreate()
+                } ,
+                contentColor = darkSurface ,
                 modifier = Modifier.fillMaxWidth(0.6f)
+            )
+        }
+        //SUGGESTED
+        item {
+            Text(
+                "Suggested Contacts" ,
+                fontSize = 15.sp ,
+                color = darkSecondary
             )
             VerticalSpace()
         }
+
+        //SUGGESTED
         items(
-            filteredContacts,
+            filteredContacts ,
             key = {
                 it.id
             }
-        ){contact->
+        ) { contact ->
             ContactListItem(
-                contact,
-                showNumber = true,
+                contact ,
+                showNumber = true ,
                 modifier = Modifier.animateItem()
             )
         }

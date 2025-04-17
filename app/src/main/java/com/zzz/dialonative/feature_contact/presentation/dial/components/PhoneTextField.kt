@@ -1,12 +1,15 @@
 package com.zzz.dialonative.feature_contact.presentation.dial.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -17,6 +20,7 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -26,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.zzz.dialonative.R
 import com.zzz.dialonative.core.presentation.components.CustomButton
+import com.zzz.dialonative.ui.theme.callingBackground
 import com.zzz.dialonative.ui.theme.darkBackground
 import com.zzz.dialonative.ui.theme.darkOnBackground
 import com.zzz.dialonative.ui.theme.dialButton
@@ -39,11 +44,14 @@ fun PhoneTextField(
     modifier: Modifier = Modifier
 ) {
 
+
     //max ph no digits can be 16 & min 4
     Column(
         modifier
             .wrapContentHeight()
-            .fillMaxWidth() ,
+            .fillMaxWidth()
+            .background(callingBackground, RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp))
+            .padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally ,
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
@@ -68,12 +76,12 @@ fun PhoneTextField(
                     .weight(1f) ,
                 readOnly = true ,
                 colors = TextFieldDefaults.colors(
-                    unfocusedContainerColor = darkBackground ,
-                    focusedContainerColor = darkBackground,
+                    unfocusedContainerColor = callingBackground ,
+                    focusedContainerColor = callingBackground,
                     focusedIndicatorColor = darkOnBackground
                 ) ,
                 textStyle = TextStyle(
-                    fontSize = 35.sp ,
+                    fontSize = 30.sp ,
                     fontWeight = FontWeight.Bold ,
                     color = darkOnBackground ,
                     textAlign = TextAlign.Center

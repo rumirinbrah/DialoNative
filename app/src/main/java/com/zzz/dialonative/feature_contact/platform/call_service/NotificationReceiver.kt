@@ -14,9 +14,9 @@ class NotificationReceiver : BroadcastReceiver() {
 
         val receivedAction = intent?.getStringExtra(CallConstants.CALL_END_ACTION)
         Log.d(LogTags.STOPWATCH , "onReceive: Notification action is $receivedAction")
+
         when(receivedAction){
             NotificationActions.END_CALL.name->{
-                Log.d(LogTags.STOPWATCH , "onReceive: CALL END ACTION")
 
                 val stopIntent = Intent(context, CallService::class.java).apply {
                     action = CallServiceActions.STOP.name
