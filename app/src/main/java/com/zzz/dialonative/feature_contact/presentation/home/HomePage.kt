@@ -26,18 +26,13 @@ import com.zzz.dialonative.feature_contact.presentation.home.components.SearchBa
 
 @Composable
 fun HomePageRoot(
-    onDialFab : ()->Unit
 ) {
-    HomePage(
-        onDialFab = onDialFab
-    )
+    HomePage()
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun HomePage(
-    onDialFab: () -> Unit
-) {
+private fun HomePage() {
     val contacts = listOf(
         Contact(id = 2, color = Color.Red.toArgb(), name = "Atharva P"),
         Contact(id = 2, color = Color.Green.toArgb(), name = "Ankush A"),
@@ -81,13 +76,6 @@ private fun HomePage(
                 }
             }
         }
-        DialFab(
-            onClick = onDialFab,
-            size = 50.dp,
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(16.dp)
-        )
 
     }
 }
@@ -95,7 +83,7 @@ private fun HomePage(
 @Preview
 @Composable
 private fun HomePrev() {
-    HomePage({})
+    HomePage()
 }
 
 
