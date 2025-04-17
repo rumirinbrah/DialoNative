@@ -1,6 +1,7 @@
 package com.zzz.dialonative.feature_contact.presentation.create_contact.components
 
 import android.net.Uri
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -19,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.zzz.dialonative.R
+import com.zzz.dialonative.core.presentation.util.LogTags
 import com.zzz.dialonative.ui.theme.darkCreate
 import com.zzz.dialonative.ui.theme.darkSurface
 
@@ -28,6 +31,13 @@ fun AddImageBox(
     onClick : ()->Unit
 ) {
     val context = LocalContext.current
+
+    LaunchedEffect(addedImage) {
+        if(addedImage!=null){
+            Log.d(LogTags.CREATE_CONTACT , "AddImageBox: Image aint null")
+
+        }
+    }
     Box(
         Modifier.size(150.dp)
             .clip(CircleShape)
@@ -45,11 +55,11 @@ fun AddImageBox(
                 modifier = Modifier.size(45.dp)
             )
         }else{
-            val uri = Uri.Builder().path(addedImage.path).build()
+            //val uri = Uri.Builder().path(addedImage.path).build()
             AsyncImage(
                 model = ImageRequest.Builder(context)
                     .crossfade(true)
-                    .data(uri)
+                    .data(addedImage)
                     .build(),
                 contentDescription = "uploaded image",
                 contentScale = ContentScale.Crop,
