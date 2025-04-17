@@ -1,5 +1,7 @@
 package com.zzz.dialonative.di
 
+import com.zzz.dialonative.feature_contact.data.repo.LiveOngoingCallSource
+import com.zzz.dialonative.feature_contact.domain.source.OngoingCallSource
 import com.zzz.dialonative.feature_contact.platform.call_service.CallNotificationManager
 import com.zzz.dialonative.feature_contact.presentation.dial.DialViewModel
 import org.koin.android.ext.koin.androidContext
@@ -12,8 +14,14 @@ val dialModule = module {
     }
 }
 val callModule = module{
+    //======NOTIFICATION MANAGER=======
     single {
         CallNotificationManager(androidContext())
+    }
+
+    //======ONGOING CALL=======
+    single<OngoingCallSource> {
+        LiveOngoingCallSource()
     }
 }
 

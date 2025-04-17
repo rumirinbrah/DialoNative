@@ -10,7 +10,13 @@ import com.zzz.dialonative.feature_contact.platform.call_service.util.CallConsta
 import org.koin.android.ext.android.inject
 
 
+/*
+for sharing the contact bw multiple nigas, we'll be creating a shared repo that we can inject with koin & scope it
+as 'single{ }'
+We can have a MST there and then share it easily
+OngoingContactRepo
 
+ */
 class CallService : Service() {
 
     private val notificationHelper by inject<CallNotificationManager>()
