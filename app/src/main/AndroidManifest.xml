@@ -7,12 +7,13 @@
         android:required="false" />
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
-
-<!--    SERVICE-->
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_PHONE_CALL"/>
-    <uses-permission android:name="android.permission.MANAGE_OWN_CALLS"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" /> <!-- SERVICE -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_PHONE_CALL" />
+    <uses-permission android:name="android.permission.MANAGE_OWN_CALLS" />
+    <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:name=".DialApp"
@@ -25,6 +26,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DialoNative"
         tools:targetApi="31">
+
+        <!--CALL ACTIVITY -->
+        <activity
+            android:name=".feature_call.CallActivity"
+            android:exported="true"
+            android:label="@string/title_activity_call_activityy"
+            android:theme="@style/Theme.DialoNative"
+            android:showOnLockScreen="true"
+            android:turnScreenOn="true"
+            android:launchMode="singleTop"
+            >
+        </activity>
+
+        <!--MAIN ACTIVITY-->
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -36,15 +51,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<!--        receiver-->
-        <receiver android:name=".feature_contact.platform.call_service.NotificationReceiver" android:enabled="true"/>
-<!--        SERVICE-->
+        <!-- receiver -->
+        <receiver
+            android:name=".feature_contact.platform.call_service.NotificationReceiver"
+            android:enabled="true" />
+
+        <!--FG SERVICE-->
         <service
             android:name=".feature_contact.platform.call_service.CallService"
-            android:foregroundServiceType="phoneCall">
+            android:foregroundServiceType="phoneCall" />
+
+        <!--CONN SERVICE-->
+        <service
+            android:name=".feature_contact.platform.default_services.DialoConnectionService"
+            android:exported="true"
+            android:permission="android.permission.BIND_TELECOM_CONNECTION_SERVICE">
+            <intent-filter>
+                <action android:name="android.telecom.ConnectionService" />
+            </intent-filter>
         </service>
-
-
     </application>
 
 </manifest>
