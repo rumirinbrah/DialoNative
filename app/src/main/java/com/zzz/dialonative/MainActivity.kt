@@ -51,6 +51,7 @@ class MainActivity : ComponentActivity() {
 
             requestPermission(this)
             DialoNativeTheme {
+                //!!!!!!!!!!!!!!!  TRY THIS rememberRipple()
                 //Navigation()
                 Test()
 
