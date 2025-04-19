@@ -1,0 +1,2 @@
+-The connection service is called whenver theres an outgoing or incoming call
+-So we'll be updating our repo there to get access to the contacts and the Connection object
