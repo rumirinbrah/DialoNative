@@ -10,4 +10,7 @@ object CallConstants {
 
     const val CALL_END_ACTION = "CALL_END"
 
+    const val ACCOUNT_HANDLE_ID = "bokunochinchinwachisai"
+    const val PHONE_ACCOUNT_LABEL = "DialoNative"
+
 }
