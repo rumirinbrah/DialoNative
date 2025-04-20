@@ -34,9 +34,9 @@ class DialoCallManager(
         val manager = context.getSystemService(Context.TELECOM_SERVICE) as TelecomManager
 
         if(!hasCallPermission()){
-            return
-        }else{
             manager.placeCall(uri,extras)
+        }else{
+            return
         }
 
     }

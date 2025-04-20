@@ -12,7 +12,9 @@ koinBom ="4.0.2"
 coilCompose ="2.6.0"
 kotlinxSerializationJson = "1.6.1"
 navigationCompose = "2.8.4"
-
+#room
+roomVersion = "2.7.0"
+kspVersion = "2.0.21-1.0.27"
 
 
 
@@ -49,6 +51,12 @@ coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose"
 #serialize
 kotlinx-serialization-json = {module = "org.jetbrains.kotlinx:kotlinx-serialization-json",version.ref = "kotlinxSerializationJson"}
 
+#Room
+androidx-room-runtime = {group = "androidx.room" , name="room-runtime" , version.ref = "roomVersion"}
+androidx-room-ktx = {group = "androidx.room" , name="room-ktx",version.ref = "roomVersion"}
+androidx-room-compiler = {group = "androidx.room" , name = "room-compiler" , version.ref = "roomVersion"}
+
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -56,5 +64,6 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 #serialize
 kotlin-serialization = {id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin"}
-
+#ksp
+devtools-ksp = { id = "com.google.devtools.ksp" , version.ref ="kspVersion"}
 
