@@ -1,6 +1,5 @@
 package com.zzz.dialonative.feature_contact.presentation.recents.components
 
-import androidx.compose.foundation.Indication
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -102,7 +101,7 @@ fun RecentListItem(
                 horizontalArrangement = Arrangement.spacedBy(8.dp) ,
                 modifier = Modifier.clickable(
                     onClick = {
-                        onClick(contact.id)
+                        onClick(contact.recentId)
                     } ,
                     interactionSource = remember { MutableInteractionSource() } ,
                     indication = null
@@ -182,7 +181,7 @@ private fun RecentItemPrev() {
 
         RecentListItem(
             contact = RecentContact(
-                id = 4 ,
+                recentId = 4 ,
                 name = "Atharva" ,
                 color = Color.Red.toArgb() ,
                 mostRecentCall = RecentCall(

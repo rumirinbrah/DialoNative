@@ -14,8 +14,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -29,12 +27,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.zzz.dialonative.R
-import com.zzz.dialonative.core.presentation.components.VerticalSpace
 import com.zzz.dialonative.feature_contact.domain.model.Contact
 import com.zzz.dialonative.ui.theme.DialoNativeTheme
 import com.zzz.dialonative.ui.theme.darkOnBackground
 import com.zzz.dialonative.ui.theme.darkOnCreate
-import com.zzz.dialonative.ui.theme.darkSurface
 
 @Composable
 fun ContactListItem(
@@ -107,7 +103,7 @@ fun ContactListItem(
 private fun ItemPrev() {
     DialoNativeTheme {
         ContactListItem(
-            contact = Contact(id = 2, color = Color.Red.toArgb(), name = "Atharva P")
+            contact = Contact(contactId = 2, color = Color.Red.toArgb(), name = "Atharva P")
         )
     }
 }

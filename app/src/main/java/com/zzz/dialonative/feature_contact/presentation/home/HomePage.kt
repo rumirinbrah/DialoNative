@@ -19,7 +19,6 @@ import androidx.compose.ui.unit.dp
 import com.zzz.dialonative.core.presentation.components.VerticalSpace
 import com.zzz.dialonative.feature_contact.domain.model.Contact
 import com.zzz.dialonative.feature_contact.presentation.home.components.ContactListItem
-import com.zzz.dialonative.feature_contact.presentation.home.components.DialFab
 import com.zzz.dialonative.feature_contact.presentation.home.components.FirstLetterStickyHeader
 import com.zzz.dialonative.feature_contact.presentation.home.components.SearchBar
 
@@ -34,11 +33,11 @@ fun HomePageRoot(
 @Composable
 private fun HomePage() {
     val contacts = listOf(
-        Contact(id = 2, color = Color.Red.toArgb(), name = "Atharva P"),
-        Contact(id = 2, color = Color.Green.toArgb(), name = "Ankush A"),
-        Contact(id = 2, color = Color.Red.toArgb(), name = "Bhupesh M"),
-        Contact(id = 2, color = Color.Green.toArgb(), name = "Chotu M"),
-        Contact(id = 2, color = Color.Green.toArgb(), name = "Srushti Patale"),
+        Contact(contactId = 2, color = Color.Red.toArgb(), name = "Atharva P"),
+        Contact(contactId = 2, color = Color.Green.toArgb(), name = "Ankush A"),
+        Contact(contactId = 2, color = Color.Red.toArgb(), name = "Bhupesh M"),
+        Contact(contactId = 2, color = Color.Green.toArgb(), name = "Chotu M"),
+        Contact(contactId = 2, color = Color.Green.toArgb(), name = "Srushti Patale"),
     )
     val grouped = remember {  contacts.groupBy { it.name.first().uppercaseChar() } }
 

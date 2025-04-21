@@ -1,30 +1,39 @@
 package com.zzz.dialonative.feature_contact.domain.model
 
 import android.net.Uri
-import java.time.LocalDateTime
-import java.time.ZoneOffset
-import java.util.Date
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.Index
+import androidx.room.PrimaryKey
+import com.zzz.dialonative.feature_contact.data.local.util.DBConstants
+import kotlinx.serialization.Serializable
 
 /**
- * @param id - DB id
- * @param name - Contact name
- * @param userImage - Uri of the uploaded contact pic
- * @param countryCode - Code
- * @param color - A bg color if no image was uploaded
+ * @param recentId - DB id
  */
-data class RecentContact(
-    val id: Long ,
-    val phone : String="9878980435",
-    val name: String = "" ,
-    val userImage: Uri? = null ,
-    val countryCode: Int = 91 ,
-    val duration : Long? = null,
-    val color: Int ,
-    val mostRecentCall : RecentCall,
-    val recentCalls : List<RecentCall> = emptyList()
+@Entity(
+    tableName = DBConstants.RECENT_CONTACTS_TABLE_NAME,
+    foreignKeys = [
+        ForeignKey(
+            entity = Contact::class ,
+            parentColumns = ["contactId"] ,
+            childColumns = ["contactId"],
+            onDelete = ForeignKey.CASCADE
+        )
+    ],
+    indices = [
+        Index("contactId")
+    ]
 )
-
+data class RecentContact(
+    @PrimaryKey(autoGenerate = true) val recentId: Long ,
+    val mostRecentCall : RecentCall ,
+    val recentCalls : List<RecentCall> = emptyList(),
+    val contactId : Long //@FOREIGN KEY
+)
+@Serializable
 data class RecentCall(
+    val duration: Long? = null,
     val callType: RecentCallType,
     val timestamp : Long = System.currentTimeMillis()
 )
@@ -33,9 +42,4 @@ enum class RecentCallType(val msg : String){
     OUTGOING("Outgoing Call"),
     MISSED_CALL("Missed Call")
 }
-fun a(){
-    val date = Date(System.currentTimeMillis())
-    date.day
-}
-//enum outgoing , incoming
-//draw res -> <-
+

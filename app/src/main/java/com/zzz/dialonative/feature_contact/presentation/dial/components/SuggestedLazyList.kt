@@ -3,7 +3,6 @@ package com.zzz.dialonative.feature_contact.presentation.dial.components
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
@@ -64,7 +63,7 @@ fun SuggestedLazyList(
         items(
             filteredContacts ,
             key = {
-                it.id
+                it.contactId
             }
         ) { contact ->
             ContactListItem(

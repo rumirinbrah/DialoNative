@@ -22,7 +22,6 @@ import com.zzz.dialonative.feature_contact.domain.model.RecentContact
 import com.zzz.dialonative.feature_contact.presentation.home.components.SearchBar
 import com.zzz.dialonative.feature_contact.presentation.recents.components.DateStickyHeader
 import com.zzz.dialonative.feature_contact.presentation.recents.components.RecentListItem
-import com.zzz.dialonative.feature_contact.presentation.recents.util.getRelativeDate
 import com.zzz.dialonative.feature_contact.presentation.recents.util.toLocalDateTime
 import java.util.concurrent.TimeUnit
 
@@ -40,19 +39,19 @@ private fun RecentCallsPage(
 ) {
     val recents = listOf(
         RecentContact(
-            id = 4,
+            recentId = 4,
             name = "Atharva",
             color = Color.Red.toArgb(),
             mostRecentCall = RecentCall(callType = RecentCallType.INCOMING)
         ),
         RecentContact(
-            id = 2,
+            recentId = 2,
             name = "Parth",
             color = Color.Red.toArgb(),
             mostRecentCall = RecentCall(callType = RecentCallType.OUTGOING)
         ),
         RecentContact(
-            id = 14,
+            recentId = 14,
             name = "Gojo",
             color = Color.Red.toArgb(),
             mostRecentCall = RecentCall(
@@ -61,7 +60,7 @@ private fun RecentCallsPage(
             )
         ),
         RecentContact(
-            id = 1,
+            recentId = 1,
             name = "Sangle",
             color = Color.Red.toArgb(),
             mostRecentCall = RecentCall(
