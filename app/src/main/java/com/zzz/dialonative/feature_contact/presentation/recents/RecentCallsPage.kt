@@ -16,6 +16,8 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.zzz.dialonative.core.presentation.components.VerticalSpace
+import com.zzz.dialonative.feature_contact.domain.model.Contact
+import com.zzz.dialonative.feature_contact.domain.model.ContactWithRecentCalls
 import com.zzz.dialonative.feature_contact.domain.model.RecentCall
 import com.zzz.dialonative.feature_contact.domain.model.RecentCallType
 import com.zzz.dialonative.feature_contact.domain.model.RecentContact
@@ -38,73 +40,85 @@ private fun RecentCallsPage(
     modifier: Modifier = Modifier
 ) {
     val recents = listOf(
-        RecentContact(
-            recentId = 4,
-            name = "Atharva",
-            color = Color.Red.toArgb(),
-            mostRecentCall = RecentCall(callType = RecentCallType.INCOMING)
-        ),
-        RecentContact(
-            recentId = 2,
-            name = "Parth",
-            color = Color.Red.toArgb(),
-            mostRecentCall = RecentCall(callType = RecentCallType.OUTGOING)
-        ),
-        RecentContact(
-            recentId = 14,
-            name = "Gojo",
-            color = Color.Red.toArgb(),
-            mostRecentCall = RecentCall(
-                callType = RecentCallType.MISSED_CALL,
-                timestamp = System.currentTimeMillis()- TimeUnit.DAYS.toMillis(1)
+        ContactWithRecentCalls(
+            contact = Contact(
+                name = "Atharva P" ,
+                color = Color.Red.toArgb() ,
+                contactId = 3
+            ) ,
+            recentsData = RecentContact(
+                mostRecentCall = RecentCall(callType = RecentCallType.INCOMING) ,
+                recentId = 1 ,
+                contactId = 3
             )
-        ),
-        RecentContact(
-            recentId = 1,
-            name = "Sangle",
-            color = Color.Red.toArgb(),
-            mostRecentCall = RecentCall(
-                callType = RecentCallType.INCOMING,
-                timestamp = System.currentTimeMillis()- TimeUnit.DAYS.toMillis(3)
+        ) ,
+        ContactWithRecentCalls(
+            contact = Contact(
+                name = "Atharva P" ,
+                color = Color.Red.toArgb() ,
+                contactId = 4
+            ) ,
+            recentsData = RecentContact(
+                mostRecentCall = RecentCall(
+                    callType = RecentCallType.MISSED_CALL ,
+                    timestamp = System.currentTimeMillis() - TimeUnit.DAYS.toMillis(1)
+                ) ,
+                recentId = 2 ,
+                contactId = 4
             )
-        ),
+        ),ContactWithRecentCalls(
+            contact = Contact(
+                name = "Idli Sambar" ,
+                color = Color.Red.toArgb() ,
+                contactId = 5
+            ) ,
+            recentsData = RecentContact(
+                mostRecentCall = RecentCall(
+                    callType = RecentCallType.MISSED_CALL ,
+                    timestamp = System.currentTimeMillis() - TimeUnit.DAYS.toMillis(1)
+                ) ,
+                recentId = 3 ,
+                contactId = 5
+            )
+        )
+
     )
 
     val groupedRecents = remember {
         recents.groupBy {
-            it.mostRecentCall.timestamp.toLocalDateTime()
+            it.recentsData.mostRecentCall.timestamp.toLocalDateTime()
         }
     }
 
     Box(
 
-    ){
+    ) {
         Column(
             Modifier
                 .fillMaxSize()
-                .padding(horizontal = 16.dp),
+                .padding(horizontal = 16.dp) ,
             horizontalAlignment = Alignment.CenterHorizontally
-        ){
+        ) {
             VerticalSpace(10.dp)
             SearchBar(
-                value = "",
+                value = "" ,
                 onValueChange = {}
             )
             VerticalSpace()
-            LazyColumn (
+            LazyColumn(
                 Modifier.fillMaxSize()
-            ){
+            ) {
                 groupedRecents.forEach { (header , recentContacts) ->
                     stickyHeader {
                         DateStickyHeader(
-                            header,
+                            header ,
                             fontSize = 17.sp
                         )
                     }
-                    items(recentContacts) {contact->
+                    items(recentContacts) { contact ->
                         RecentListItem(
-                            contact = contact,
-                            onDial = {},
+                            contactWithRecentCalls = contact ,
+                            onDial = {} ,
                             onClick = {}
                         )
                     }

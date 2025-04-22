@@ -32,6 +32,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.zzz.dialonative.R
+import com.zzz.dialonative.feature_contact.domain.model.ContactWithRecentCalls
 import com.zzz.dialonative.feature_contact.domain.model.RecentCall
 import com.zzz.dialonative.feature_contact.domain.model.RecentCallType
 import com.zzz.dialonative.feature_contact.domain.model.RecentContact
@@ -49,7 +50,7 @@ import java.util.concurrent.TimeUnit
 
 @Composable
 fun RecentListItem(
-    contact: RecentContact ,
+    contactWithRecentCalls: ContactWithRecentCalls ,
     onClick: (id: Long) -> Unit ,
     onDial: (num: String) -> Unit ,
     shape: RoundedCornerShape = RoundedCornerShape(
@@ -59,16 +60,20 @@ fun RecentListItem(
     ) ,
     modifier: Modifier = Modifier
 ) {
+    val contact = remember { contactWithRecentCalls.contact }
+    val recentsData = remember { contactWithRecentCalls.recentsData }
+
     val iconTint = remember {
-        if (contact.mostRecentCall.callType == RecentCallType.MISSED_CALL) {
+        if (recentsData.mostRecentCall.callType == RecentCallType.MISSED_CALL) {
             dullRed
         } else {
             darkSecondary
         }
     }
     val formattedStringForRecent = remember {
-        getFormattedStringForRecentCall(contact.mostRecentCall.timestamp)
+        getFormattedStringForRecentCall(recentsData.mostRecentCall.timestamp)
     }
+
 
     Row(
         modifier
@@ -101,7 +106,7 @@ fun RecentListItem(
                 horizontalArrangement = Arrangement.spacedBy(8.dp) ,
                 modifier = Modifier.clickable(
                     onClick = {
-                        onClick(contact.recentId)
+                        onClick(contact.contactId)
                     } ,
                     interactionSource = remember { MutableInteractionSource() } ,
                     indication = null
@@ -130,9 +135,9 @@ fun RecentListItem(
                     ) {
                         Icon(
                             painter = painterResource(
-                                contact.mostRecentCall.callType.getIcon()
+                                recentsData.mostRecentCall.callType.getIcon()
                             ) ,
-                            contentDescription = contact.mostRecentCall.callType.msg ,
+                            contentDescription = recentsData.mostRecentCall.callType.msg ,
                             tint = iconTint ,
                             modifier = Modifier.size(18.dp)
                         )
@@ -141,7 +146,7 @@ fun RecentListItem(
                             formattedStringForRecent ,
                             fontSize = 12.sp ,
                             color = iconTint ,
-                            fontWeight = if (contact.mostRecentCall.callType == RecentCallType.MISSED_CALL) {
+                            fontWeight = if (recentsData.mostRecentCall.callType == RecentCallType.MISSED_CALL) {
                                 FontWeight.Bold
                             } else {
                                 null
@@ -179,19 +184,19 @@ fun RecentListItem(
 private fun RecentItemPrev() {
     DialoNativeTheme {
 
-        RecentListItem(
-            contact = RecentContact(
-                recentId = 4 ,
-                name = "Atharva" ,
-                color = Color.Red.toArgb() ,
-                mostRecentCall = RecentCall(
-                    callType = RecentCallType.MISSED_CALL ,
-                    timestamp = System.currentTimeMillis() - TimeUnit.DAYS.toMillis(1)
-                )
-            ) ,
-            onClick = {} ,
-            onDial = {}
-        )
+//        RecentListItem(
+//            contactWithRecentCalls = RecentContact(
+//                recentId = 4 ,
+//                name = "Atharva" ,
+//                color = Color.Red.toArgb() ,
+//                mostRecentCall = RecentCall(
+//                    callType = RecentCallType.MISSED_CALL ,
+//                    timestamp = System.currentTimeMillis() - TimeUnit.DAYS.toMillis(1)
+//                )
+//            ) ,
+//            onClick = {} ,
+//            onDial = {}
+//        )
     }
 
 }

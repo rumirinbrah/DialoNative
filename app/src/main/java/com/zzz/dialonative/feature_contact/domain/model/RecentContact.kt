@@ -1,10 +1,11 @@
 package com.zzz.dialonative.feature_contact.domain.model
 
-import android.net.Uri
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import androidx.room.Relation
 import com.zzz.dialonative.feature_contact.data.local.util.DBConstants
 import kotlinx.serialization.Serializable
 
@@ -26,20 +27,35 @@ import kotlinx.serialization.Serializable
     ]
 )
 data class RecentContact(
-    @PrimaryKey(autoGenerate = true) val recentId: Long ,
+    @PrimaryKey(autoGenerate = true)
+    val recentId: Long ,
     val mostRecentCall : RecentCall ,
     val recentCalls : List<RecentCall> = emptyList(),
     val contactId : Long //@FOREIGN KEY
 )
+
+
 @Serializable
 data class RecentCall(
     val duration: Long? = null,
     val callType: RecentCallType,
     val timestamp : Long = System.currentTimeMillis()
 )
+
+
 enum class RecentCallType(val msg : String){
     INCOMING("Incoming Call"),
     OUTGOING("Outgoing Call"),
     MISSED_CALL("Missed Call")
 }
+
+data class ContactWithRecentCalls(
+    @Embedded
+    val contact: Contact,
+    @Relation(
+        parentColumn = "contactId",
+        entityColumn = "contactId"
+    )
+    val recentsData : RecentContact
+)
 
