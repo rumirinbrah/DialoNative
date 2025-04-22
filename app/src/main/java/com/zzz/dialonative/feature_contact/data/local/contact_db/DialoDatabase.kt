@@ -5,6 +5,8 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.zzz.dialonative.feature_contact.data.local.contact_db.converters.RecentConverters
 import com.zzz.dialonative.feature_contact.data.local.contact_db.converters.UriTypeConverter
+import com.zzz.dialonative.feature_contact.data.local.contact_db.dao.ContactsDao
+import com.zzz.dialonative.feature_contact.data.local.contact_db.dao.RecentContactsDao
 import com.zzz.dialonative.feature_contact.domain.model.Contact
 import com.zzz.dialonative.feature_contact.domain.model.RecentContact
 
@@ -13,8 +15,9 @@ import com.zzz.dialonative.feature_contact.domain.model.RecentContact
     version =1,
 )
 @TypeConverters(value = [UriTypeConverter::class, RecentConverters::class])
-abstract class ContactDatabase :RoomDatabase(){
+abstract class DialoDatabase :RoomDatabase(){
 
-
+    abstract val contactsDao : ContactsDao
+    abstract val recentContactsDao : RecentContactsDao
 
 }
