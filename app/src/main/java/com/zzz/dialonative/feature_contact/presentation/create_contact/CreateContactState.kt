@@ -6,5 +6,6 @@ data class CreateContactState(
     val name : String = "",
     val mobile : String = "",
     val email : String = "",
-    val image : Uri? = null
+    val image : Uri? = null,
+    val color : Int? = null
 )
