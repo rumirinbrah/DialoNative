@@ -1,5 +1,6 @@
 package com.zzz.dialonative.core.presentation
 
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -21,13 +22,16 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.zzz.dialonative.core.presentation.components.BottomNavBar
+import com.zzz.dialonative.core.presentation.util.LogTags
 import com.zzz.dialonative.core.presentation.util.Screen
 import com.zzz.dialonative.feature_contact.presentation.create_contact.CreateContactRoot
 import com.zzz.dialonative.feature_contact.presentation.dial.DialPageRoot
 import com.zzz.dialonative.feature_contact.presentation.home.HomePageRoot
+import com.zzz.dialonative.feature_contact.presentation.home.HomeViewModel
 import com.zzz.dialonative.feature_contact.presentation.home.components.DialFab
 import com.zzz.dialonative.feature_contact.presentation.recents.RecentCallsRoot
 import com.zzz.dialonative.ui.theme.darkBackground
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun Navigation(
@@ -40,6 +44,8 @@ fun Navigation(
     }
     var navBarHeight by remember { mutableStateOf(0.dp) }
     val density = LocalDensity.current
+
+    val homeViewModel = koinViewModel<HomeViewModel>()
 
 
     /*
@@ -63,27 +69,22 @@ fun Navigation(
     ) {
         NavHost(
             navController = navController,
-            startDestination = Screen.RecentScreen,
+            startDestination = Screen.HomeScreen,
             modifier = Modifier,
-//            enterTransition = {
-//                EnterTransition.None
-//            },
-//            exitTransition ={
-//                ExitTransition.None
-//            },
-
         ) {
             //CREATE
             composable<Screen.CreateContactScreen>(
             ) {
                 val data = it.toRoute<Screen.CreateContactScreen>()
+
                 navBarVisible = false
                 CreateContactRoot(
                     phone = data.phone,
-                    cancel = {
+                    navigateUp = {
                         println("CLOSE")
                         navController.navigateUp()
-                    }
+                    },
+                    contactId = data.contactId
                 )
             }
             //HOME
@@ -92,7 +93,12 @@ fun Navigation(
             ) {
 
                 navBarVisible = true
-                HomePageRoot()
+                HomePageRoot(
+                    homeViewModel = homeViewModel,
+                    onContactClick = {id->
+                        navController.navigate(Screen.CreateContactScreen(contactId = id))
+                    }
+                )
             }
             //RECENT SCREEN
             composable<Screen.RecentScreen>(

@@ -1,5 +1,6 @@
 package com.zzz.dialonative.feature_contact.presentation.create_contact
 
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -7,11 +8,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
@@ -35,33 +34,42 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.zzz.dialonative.R
 import com.zzz.dialonative.core.presentation.components.VerticalSpace
+import com.zzz.dialonative.core.presentation.util.LogTags
 import com.zzz.dialonative.feature_contact.presentation.create_contact.components.AddImageBox
 import com.zzz.dialonative.feature_contact.presentation.create_contact.components.TextFieldWithIcon
 import com.zzz.dialonative.ui.theme.callingBackground
 import com.zzz.dialonative.ui.theme.darkButton
 import com.zzz.dialonative.ui.theme.darkOnBackground
-import com.zzz.dialonative.ui.theme.darkSurface
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun CreateContactRoot(
-    phone : String? = null,
-    cancel : ()->Unit,
-    viewModel : CreateContactViewModel = viewModel() ,
+    phone : String? = null ,
+    contactId : Long? = null ,
+    navigateUp : ()->Unit ,
+    viewModel : CreateContactViewModel = koinViewModel() ,
 ) {
+
 
     val state by viewModel.state.collectAsStateWithLifecycle()
     if(phone!=null){
         viewModel.onAction(CreateAction.OnPhoneChange(phone))
     }
+    if(contactId!=null){
+
+        viewModel.onAction(CreateAction.FetchContact(contactId))
+    }
+
     CreateContactPage(
         state ,
-        cancel = cancel,
+        cancel = navigateUp,
+        navigateUp = navigateUp,
         onAction = {action->
             viewModel.onAction(action)
-        }
+        },
+        isActionUpdate = contactId!=null
     )
 
 }
@@ -71,7 +79,9 @@ fun CreateContactRoot(
 private fun CreateContactPage(
     state: CreateContactState,
     cancel : () ->Unit,
-    onAction : (CreateAction)->Unit
+    onAction : (CreateAction)->Unit,
+    navigateUp : () ->Unit = {},
+    isActionUpdate : Boolean = false
 ) {
     val focusManager = LocalFocusManager.current
     val launcher = rememberLauncherForActivityResult(
@@ -160,7 +170,7 @@ private fun CreateContactPage(
 
             //email
             TextFieldWithIcon(
-                value = state.email,
+                value = state.email ,
                 icon = R.drawable.email_icon,
                 placeholder = "Email",
                 imeAction = ImeAction.Done,
@@ -174,9 +184,18 @@ private fun CreateContactPage(
 
         }
 
+
+        //SAVE
         VerticalSpace(40.dp)
         Button(
-            onClick = {},
+            onClick = {
+                if(isActionUpdate){
+                    onAction(CreateAction.UpdateContact)
+                }else{
+                    onAction(CreateAction.CreateContact)
+                }
+                navigateUp()
+            },
             shape = Shapes().medium,
             colors = ButtonDefaults.buttonColors(
                 containerColor = darkButton
@@ -192,8 +211,6 @@ private fun CreateContactPage(
                 fontSize = 18.sp
             )
         }
-
-
     }
 }
 

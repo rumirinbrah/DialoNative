@@ -35,7 +35,10 @@ import com.zzz.dialonative.ui.theme.darkOnCreate
 @Composable
 fun ContactListItem(
     contact: Contact,
+    onClick : (Long)->Unit,
+    onDial : ()->Unit,
     showNumber : Boolean = false,
+    enabled : Boolean = true,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -49,11 +52,18 @@ fun ContactListItem(
     ) {
         //Image and name
         Row(
+            modifier = Modifier.weight(1f)
+                .clickable {
+                    if(enabled){
+                        //nav to update
+                        onClick(contact.contactId)
+                    }
+                },
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
 
-            ContactListImage(firstLetter = contact.name.take(1), color = contact.color)
+            ContactListImage(uri = contact.userImage, firstLetter = contact.name.take(1), color = contact.color)
             Column(
                 horizontalAlignment = Alignment.Start
             ) {
@@ -65,7 +75,6 @@ fun ContactListItem(
                     color = darkOnBackground
                 )
                 if(showNumber){
-//                    VerticalSpace(4.dp)
                     Text(
                         contact.phone ,
                         fontSize = 13.sp,
@@ -83,7 +92,7 @@ fun ContactListItem(
                 .clip(CircleShape)
                 .background(Color.DarkGray)
                 .clickable {
-
+                    onDial()
                 }.padding(4.dp)
                 ,
             contentAlignment = Alignment.Center
@@ -103,7 +112,9 @@ fun ContactListItem(
 private fun ItemPrev() {
     DialoNativeTheme {
         ContactListItem(
-            contact = Contact(contactId = 2, color = Color.Red.toArgb(), name = "Atharva P")
+            contact = Contact(contactId = 2, color = Color.Red.toArgb(), name = "Atharva P"),
+            onClick = {},
+            onDial = {}
         )
     }
 }

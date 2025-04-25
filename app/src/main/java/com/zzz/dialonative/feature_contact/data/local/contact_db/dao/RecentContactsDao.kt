@@ -22,12 +22,12 @@ abstract class RecentContactsDao {
     @Update
     abstract suspend fun updateRecentContactData(recentContact: RecentContact)
 
-    @Query("select * from recent_contacts_table where recentId = :id")
-    abstract suspend fun getRecentContactById(id: Long) : ContactWithRecentCalls
+    @Query("select * from contacts_table where contactId = :id")
+    abstract suspend fun getRecentContactByContactId(id: Long) : ContactWithRecentCalls
 
     //ensures consistency uhh...something like that
     @Transaction
-    @Query("select * from recent_contacts_table")
+    @Query("select * from contacts_table")
     abstract fun getRecentContacts() : Flow<List<ContactWithRecentCalls>>
 
 

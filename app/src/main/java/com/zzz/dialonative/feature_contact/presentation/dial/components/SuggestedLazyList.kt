@@ -1,6 +1,5 @@
 package com.zzz.dialonative.feature_contact.presentation.dial.components
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
@@ -19,7 +18,6 @@ import com.zzz.dialonative.feature_contact.presentation.home.components.ContactL
 import com.zzz.dialonative.ui.theme.darkSecondary
 import com.zzz.dialonative.ui.theme.darkSurface
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SuggestedLazyList(
     state: DialState ,
@@ -69,6 +67,8 @@ fun SuggestedLazyList(
             ContactListItem(
                 contact ,
                 showNumber = true ,
+                onDial = {},
+                onClick = {},
                 modifier = Modifier.animateItem()
             )
         }

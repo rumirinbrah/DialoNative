@@ -86,11 +86,16 @@ fun Test(modifier: Modifier = Modifier) {
 }
 private fun requestPermission(context: Context){
     if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.TIRAMISU) {
-        val hasPerm = ContextCompat.checkSelfPermission(context , Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED
+        //READ for android <= 9
+        val hasPerm = ContextCompat.checkSelfPermission(context , Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
         if(!hasPerm){
             ActivityCompat.requestPermissions(
                 context as ComponentActivity ,
-                arrayOf(Manifest.permission.CALL_PHONE , Manifest.permission.POST_NOTIFICATIONS) ,
+                arrayOf(
+                    Manifest.permission.CALL_PHONE ,
+                    Manifest.permission.POST_NOTIFICATIONS,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                ) ,
                 101
             )
         }

@@ -7,7 +7,7 @@ import com.zzz.dialonative.feature_contact.data.local.util.DBConstants
 
 @Entity(tableName = DBConstants.CONTACTS_TABLE_NAME)
 data class Contact(
-    @PrimaryKey(autoGenerate = true) val contactId : Long ,
+    @PrimaryKey(autoGenerate = true) val contactId : Long = 0L ,
     val phone : String="8976569210" ,
     val name : String = "" ,
     val userImage : Uri? = null ,

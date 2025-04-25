@@ -4,7 +4,10 @@ import kotlinx.serialization.Serializable
 
 sealed class Screen {
     @Serializable
-    data class CreateContactScreen(val phone : String) : Screen()
+    data class CreateContactScreen(
+        val phone : String? = null,
+        val contactId : Long? = null
+    ) : Screen()
 
     @Serializable
     data object HomeScreen : Screen()

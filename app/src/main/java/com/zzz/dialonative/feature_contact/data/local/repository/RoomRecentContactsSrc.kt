@@ -23,7 +23,7 @@ class RoomRecentContactsSrc(
     }
 
     override suspend fun getContactById(id: Long): ContactWithRecentCalls? {
-        return dao.getRecentContactById(id)
+        return dao.getRecentContactByContactId(id)
     }
 
     override fun getRecentContacts(): Flow<List<ContactWithRecentCalls>> {

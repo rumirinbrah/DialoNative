@@ -10,4 +10,8 @@ sealed class CreateAction {
 
     data class OnAddImage(val uri :Uri) : CreateAction()
 
+    data object CreateContact : CreateAction()
+    data object UpdateContact : CreateAction()
+    data class FetchContact(val id : Long) : CreateAction()
+
 }
