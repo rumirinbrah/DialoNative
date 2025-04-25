@@ -27,42 +27,38 @@ import com.zzz.dialonative.ui.theme.darkSurface
 
 @Composable
 fun AddImageBox(
-    addedImage : Uri? = null,
-    onClick : ()->Unit
+    addedImage: Uri? = null ,
+    onClick: () -> Unit
 ) {
     val context = LocalContext.current
 
-    LaunchedEffect(addedImage) {
-        if(addedImage!=null){
-            Log.d(LogTags.CREATE_CONTACT , "AddImageBox: Image aint null")
 
-        }
-    }
     Box(
-        Modifier.size(150.dp)
+        Modifier
+            .size(150.dp)
             .clip(CircleShape)
             .background(darkSurface)
-            .clickable{
+            .clickable {
                 onClick()
-            },
+            } ,
         contentAlignment = Alignment.Center
-    ){
-        if(addedImage==null){
+    ) {
+        if (addedImage == null) {
             Icon(
-                painter = painterResource(R.drawable.add_photo_icon),
-                contentDescription = "add image",
-                tint = darkCreate,
+                painter = painterResource(R.drawable.add_photo_icon) ,
+                contentDescription = "add image" ,
+                tint = darkCreate ,
                 modifier = Modifier.size(45.dp)
             )
-        }else{
+        } else {
             //val uri = Uri.Builder().path(addedImage.path).build()
             AsyncImage(
                 model = ImageRequest.Builder(context)
                     .crossfade(true)
                     .data(addedImage)
-                    .build(),
-                contentDescription = "uploaded image",
-                contentScale = ContentScale.Crop,
+                    .build() ,
+                contentDescription = "uploaded image" ,
+                contentScale = ContentScale.Crop ,
                 modifier = Modifier.fillMaxSize()
             )
         }

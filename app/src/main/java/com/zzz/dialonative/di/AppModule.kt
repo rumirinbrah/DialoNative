@@ -12,15 +12,25 @@ import com.zzz.dialonative.feature_contact.domain.source.RecentContactsSource
 import com.zzz.dialonative.feature_contact.domain.system.PhoneAccountHandler
 import com.zzz.dialonative.feature_contact.platform.call_service.CallNotificationManager
 import com.zzz.dialonative.feature_contact.platform.phone_account.TelecomPhoneAccountHandler
+import com.zzz.dialonative.feature_contact.presentation.create_contact.CreateContactViewModel
 import com.zzz.dialonative.feature_contact.presentation.dial.DialViewModel
+import com.zzz.dialonative.feature_contact.presentation.home.HomeViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
-val dialModule = module {
+val commonsModule = module {
     viewModel {
         DialViewModel()
     }
+    viewModel {
+        CreateContactViewModel(context = androidContext() ,contactSource = get())
+    }
+    viewModel {
+        HomeViewModel(contactsSource = get())
+    }
+
+
 }
 val callModule = module{
     //======NOTIFICATION MANAGER=======
@@ -41,7 +51,7 @@ val callModule = module{
 
 //DB
 val databaseModule = module {
-    //========= DB =========
+//========= DB =========
     single<DialoDatabase> {
         Room.databaseBuilder(
             androidContext(),
